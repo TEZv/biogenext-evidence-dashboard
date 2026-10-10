@@ -1,8 +1,8 @@
 # BioGENext 2026 dashboard
 
-Локальний Streamlit-дашборд для дослідження переходу від biomedical data до clinical decision.
+Streamlit dashboard for exploring the transition from biomedical data to clinical decision.
 
-## Запуск
+## Run
 
 ```bash
 cd "stage-two-research/biogenext-dashboard"
@@ -10,14 +10,14 @@ python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Інтерфейс має темну тему з неоновими mint/blue/violet accents і містить:
+The interface uses a dark theme with neon mint/blue/violet accents and includes:
 
-- масштаб metagenomics study;
+- metagenomics study scale;
 - mapped / unmapped reads;
-- benchmark швидкості Bakta vs Pannotator;
+- Bakta vs Pannotator runtime benchmark;
 - Boltz: tested compounds vs positive results;
-- fastLBP та інші validation notes;
-- український oncology / UBI Hub roadmap;
-- рівні доказовості та обмеження метрик.
+- fastLBP and other validation notes;
+- Ukraine oncology / UBI Hub roadmap;
+- evidence levels and metric limitations.
 
-Дані вбудовані у `app.py` на основі слайдів BioGENext 2026 та позначені за типом доказовості. Це дослідницька візуалізація, не клінічний інструмент.
+Data is embedded in `app.py` based on BioGENext 2026 slides and labeled by evidence type. This is a research visualization, not a clinical tool.

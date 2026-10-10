@@ -84,87 +84,87 @@ def metric(label, value, note):
 st.markdown('<div class="eyebrow">BioGENext 2026 · evidence map</div>', unsafe_allow_html=True)
 st.title("From data to clinical decision")
 st.markdown(
-    '<div class="subtitle">Що відбувається між біологічним сигналом, моделлю та рішенням для пацієнта?</div>',
+    '<div class="subtitle">What happens between a biological signal, a model, and a patient decision?</div>',
     unsafe_allow_html=True,
 )
 
 with st.sidebar:
-    st.markdown("### Навігація")
+    st.markdown("### Navigation")
     view = st.radio(
-        "Розділ",
-        ["Огляд", "Metagenomics", "Models & validation", "Ukraine pipeline", "Evidence notes"],
+        "Section",
+        ["Overview", "Metagenomics", "Models & validation", "Ukraine pipeline", "Evidence notes"],
         label_visibility="collapsed",
     )
     st.divider()
-    st.markdown("**Рівень доказовості**")
-    st.caption("Цифри нижче — зі слайдів BioGENext або позначені як benchmark / proposal. Вони не є клінічною валідацією K-RnD Lab.")
+    st.markdown("**Evidence level**")
+    st.caption("The figures below come from BioGENext slides or are labeled as benchmark / proposal. They are not clinical validation of K-RnD Lab.")
 
-if view == "Огляд":
+if view == "Overview":
     st.markdown(
-        '<div class="callout"><b>Головна теза:</b> у біомедицині недостатньо побудувати модель. '
-        'Потрібен маршрут, яким її результат дійде до експерименту, регуляторного середовища та клінічного рішення.</div>',
+        '<div class="callout"><b>Core thesis:</b>  in biomedicine, building a model is not enough. '
+        'The result needs a route to an experiment, a regulatory pathway, and a clinical decision.</div>',
         unsafe_allow_html=True,
     )
     st.write("")
 
     cols = st.columns(4)
     with cols[0]:
-        metric("Міста в metagenomics study", "60", "conference slide")
+        metric("Cities in the metagenomics study", "60", "conference slide")
     with cols[1]:
-        metric("Зразки", "4 728", "conference slide")
+        metric("Samples", "4 728", "conference slide")
     with cols[2]:
-        metric("Незіставлені reads", "34,6%", "not mapped to existing databases")
+        metric("Unmapped reads", "34.6%", "not mapped to existing databases")
     with cols[3]:
-        metric("Pannotator speedup", "4,2×", "8 154 genomes benchmark")
+        metric("Pannotator speedup", "4.2×", "8 154 genomes benchmark")
 
-    st.subheader("Один pipeline — кілька точок розриву")
+    st.subheader("One pipeline — several points of failure")
     pipeline = pd.DataFrame(
         {
-            "Етап": ["Дані", "Модель", "Експеримент", "Діагностика", "Рішення", "Терапія"],
-            "Результат": [100, 82, 58, 35, 18, 8],
+            "Stage": ["Data", "Model", "Experiment", "Diagnostics", "Decision", "Therapy"],
+            "Index": [100, 82, 58, 35, 18, 8],
         }
     )
     fig = px.funnel(
         pipeline,
-        y="Етап",
-        x="Результат",
-        title="Ілюстративна карта переходу сигналу до рішення (не виміряні дані)",
+        y="Stage",
+        x="Index",
+        title="Illustrative signal-to-decision map (not measured data)",
     )
     fig.update_traces(marker_color=COLORS["mint"], textinfo="value")
-    fig.update_xaxes(title="Умовний індекс проходження pipeline (не клінічна метрика)")
+    fig.update_xaxes(title="Illustrative pipeline index (not a clinical metric)")
     fig.update_yaxes(title="")
     chart_layout(fig, 390)
     st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
     st.markdown(
-        '<div class="source">Ілюстративний індекс для пояснення pipeline K-RnD Lab; '
-        'значення 100 → 8 не походять із дослідження і не описують реальні втрати.</div>',
+        '<div class="source">Illustrative index for explaining the K-RnD Lab pipeline; '
+        '100 → 8 does not come from a study and does not describe real-world attrition.</div>',
         unsafe_allow_html=True,
     )
 
 elif view == "Metagenomics":
-    st.subheader("Metagenomics: масштаб даних і межі відомого")
+    st.subheader("Metagenomics: data scale and the limits of what is known")
     st.markdown(
-        '<div class="small">Одна з презентацій показала не «готову відповідь», а масштаб задачі: '
-        'величезна частина біологічного сигналу ще не має надійної відповідності в базах.</div>',
+        '<div class="small">One presentation showed not a “finished answer,” but the scale of the problem: '
+        'a large share of biological signal still has no reliable match in existing databases.</div>',
         unsafe_allow_html=True,
     )
     st.write("")
 
     scale = pd.DataFrame(
         {
-            "Показник": ["Зразки", "Бактерії", "Віруси", "CRISPR arrays"],
-            "Значення": [4728, 748, 10928, 838532],
+            "Metric": ["Samples", "Bacteria", "Viruses", "CRISPR arrays"],
+            "Value": [4728, 748, 10928, 838532],
         }
     )
     fig = px.bar(
         scale,
-        x="Показник",
-        y="Значення",
-        title="Масштаб metagenomics study",
-        color="Показник",
+        x="Metric",
+        y="Value",
+        title="Metagenomics study scale",
+        color="Metric",
         color_discrete_sequence=[COLORS["mint"], COLORS["blue"], COLORS["violet"], COLORS["pink"]],
     )
-    fig.update_yaxes(type="log", title="Кількість (логарифмічна шкала)")
+    fig.update_yaxes(type="log", title="Count (log scale)")
     fig.update_xaxes(title="")
     fig.update_layout(showlegend=False)
     chart_layout(fig, 390)
@@ -176,49 +176,49 @@ elif view == "Metagenomics":
 
     left, right = st.columns(2)
     with left:
-        unmapped = pd.DataFrame({"Категорія": ["Mapped", "Not mapped"], "Reads": [65.4, 34.6]})
+        unmapped = pd.DataFrame({"Category": ["Mapped", "Not mapped"], "Reads": [65.4, 34.6]})
         fig = px.pie(
             unmapped,
             values="Reads",
-            names="Категорія",
+            names="Category",
             hole=0.62,
-            title="Reads зіставлені з базами",
+            title="Reads mapped to databases",
             color_discrete_sequence=[COLORS["blue"], COLORS["orange"]],
         )
         fig.update_traces(textinfo="label+percent")
         chart_layout(fig, 330)
         st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
-        st.markdown('<div class="source">34,6% — частка reads, що не зіставили з наявними базами.</div>', unsafe_allow_html=True)
+        st.markdown('<div class="source">34.6% — share of reads that did not match existing databases.</div>', unsafe_allow_html=True)
     with right:
-        runtime = pd.DataFrame({"Інструмент": ["Bakta", "Pannotator"], "Seconds": [930.9, 220.5]})
+        runtime = pd.DataFrame({"Tool": ["Bakta", "Pannotator"], "Seconds": [930.9, 220.5]})
         fig = px.bar(
             runtime,
-            x="Інструмент",
+            x="Tool",
             y="Seconds",
-            title="Annotation runtime на зразок",
+            title="Annotation runtime per sample",
             text="Seconds",
-            color="Інструмент",
+            color="Tool",
             color_discrete_sequence=[COLORS["pink"], COLORS["mint"]],
         )
-        fig.update_yaxes(title="Секунди на зразок")
+        fig.update_yaxes(title="Seconds per sample")
         fig.update_xaxes(title="")
         fig.update_traces(texttemplate="%{text:.1f}s", textposition="outside")
         chart_layout(fig, 330)
         st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
-        st.markdown('<div class="source">n=8 154; benchmark slide: 930,9 → 220,5 s, приблизно 4,2×.</div>', unsafe_allow_html=True)
+        st.markdown('<div class="source">n=8,154; benchmark slide: 930.9 → 220.5 s, approximately 4.2×.</div>', unsafe_allow_html=True)
 
 elif view == "Models & validation":
-    st.subheader("Модель не дорівнює доказу")
+    st.subheader("A model is not evidence")
     st.markdown(
-        '<div class="small">Навіть сильний computational result має пройти експериментальну перевірку. '
-        'Тому візуалізація розділяє prediction, benchmark і підтверджене binding.</div>',
+        '<div class="small">Even a strong computational result needs experimental validation. '
+        'This view separates prediction, benchmark, and confirmed binding.</div>',
         unsafe_allow_html=True,
     )
     st.write("")
 
     tested = pd.DataFrame(
         {
-            "Мішень": ["GLP-2", "GABARAP", "MRGPRX2", "STAT6", "ROR1", "WNR"],
+            "Target": ["GLP-2", "GABARAP", "MRGPRX2", "STAT6", "ROR1", "WNR"],
             "Tested": [51, 28, 38, 37, 34, 27],
             "Positive / confirmed": [12, 3, 10, 1, 2, 2],
         }
@@ -226,13 +226,13 @@ elif view == "Models & validation":
     tested["Rate"] = tested["Positive / confirmed"] / tested["Tested"] * 100
     fig = px.bar(
         tested,
-        x="Мішень",
+        x="Target",
         y=["Tested", "Positive / confirmed"],
         barmode="group",
         title="Boltz: tested compounds vs positive results",
         color_discrete_sequence=[COLORS["blue"], COLORS["mint"]],
     )
-    fig.update_yaxes(title="Кількість сполук")
+    fig.update_yaxes(title="Number of compounds")
     fig.update_xaxes(title="")
     chart_layout(fig, 390)
     st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
@@ -245,38 +245,38 @@ elif view == "Models & validation":
     with cols[0]:
         metric("Werner helicase", "2 / 27", "confirmed binders / tested compounds")
     with cols[1]:
-        metric("IC50", "24 & 8,6 μM", "two confirmed binders")
+        metric("IC50", "24 & 8.6 μM", "two confirmed binders")
     with cols[2]:
-        metric("fastLBP example", "r = 0,28", "CHI3L1 expression prediction")
+        metric("fastLBP example", "r = 0.28", "CHI3L1 expression prediction")
 
     st.info(
-        "Важливе очищення цифр: 87% зі слайдів належить ErCas12a experimental assay, а не metagenomics-моделі K-RnD Lab. У пості не варто називати це власною accuracy."
+        "Important data clarification: the 87% figure belongs to an ErCas12a experimental assay, not a K-RnD Lab metagenomics model. It should not be presented as our accuracy."
     )
 
 elif view == "Ukraine pipeline":
-    st.subheader("Український маршрут: від policy до pipeline")
+    st.subheader("Ukraine’s route: from policy to pipeline")
     st.markdown(
-        '<div class="small">На конференції показували не лише біологічні моделі, а й інфраструктуру, '
-        'яка має зробити їх застосовними.</div>',
+        '<div class="small">The conference showed not only biological models, but also the infrastructure '
+        'needed to make them usable.</div>',
         unsafe_allow_html=True,
     )
     st.write("")
 
     cols = st.columns(4)
     with cols[0]:
-        metric("Нові випадки раку / рік", "155 239", "figure shown on policy slide")
+        metric("New cancer cases / year", "155 239", "figure shown on policy slide")
     with cols[1]:
-        metric("Смерті / рік", "84 153", "figure shown on policy slide")
+        metric("Deaths / year", "84 153", "figure shown on policy slide")
     with cols[2]:
-        metric("Mortality / incidence", "0,54", "EU comparison: 0,35–0,40")
+        metric("Mortality / incidence", "0.54", "EU comparison: 0.35–0.40")
     with cols[3]:
         metric("Phase I pilot", "500 cases", "UBI Hub proposal")
 
     roadmap = pd.DataFrame(
         {
-            "Фаза": ["Phase I", "Phase II", "Phase III"],
-            "Період": ["2025–26", "2027–28", "2027–30"],
-            "Фокус": ["legal + 500-case pilot", "AI, NGS, OncoAtlas-UA", "ecosystem + partnerships"],
+            "Phase": ["Phase I", "Phase II", "Phase III"],
+            "Period": ["2025–26", "2027–28", "2027–30"],
+            "Focus": ["legal + 500-case pilot", "AI, NGS, OncoAtlas-UA", "ecosystem + partnerships"],
         }
     )
     fig = go.Figure()
@@ -289,9 +289,9 @@ elif view == "Ukraine pipeline":
                 mode="lines+markers+text",
                 line=dict(color=colors[i], width=10),
                 marker=dict(size=16, color=colors[i]),
-                text=[row["Фаза"], row["Період"]],
+                text=[row["Phase"], row["Period"]],
                 textposition=["top center", "bottom center"],
-                hovertext=row["Фокус"],
+                hovertext=row["Focus"],
                 hoverinfo="text",
                 showlegend=False,
             )
@@ -307,29 +307,29 @@ elif view == "Ukraine pipeline":
     )
 
 elif view == "Evidence notes":
-    st.subheader("Що саме означає кожна цифра")
+    st.subheader("What each figure means")
     notes = [
-        ("Conference slide", "число показане спікером на слайді; треба цитувати назву доповіді"),
-        ("Benchmark", "порівняння інструментів або моделей на певному dataset"),
-        ("Experimental", "результат лабораторної перевірки, але не обов’язково клінічний"),
-        ("Proposal", "запланована інфраструктура або roadmap, не готова система"),
-        ("K-RnD prototype", "дослідницький або simulated результат; не clinical validation"),
+        ("Conference slide", "a figure shown by the speaker on a slide; cite the talk title"),
+        ("Benchmark", "a comparison of tools or models on a specific dataset"),
+        ("Experimental", "a laboratory validation result, but not necessarily clinical"),
+        ("Proposal", "planned infrastructure or roadmap, not an operational system"),
+        ("K-RnD prototype", "research or simulated result; not clinical validation"),
     ]
     for label, description in notes:
         st.markdown(f"**{label}** — {description}")
 
     st.divider()
-    st.markdown("### Чого тут навмисно немає")
+    st.markdown("### What is intentionally not shown here")
     st.markdown(
         """
-        - 87% accuracy як результат K-RnD metagenomics — такого підтвердження немає.
-        - твердження, що лікарі вже використовують ці моделі;
-        - висновок, що metagenomics-тест самостійно діагностує або прогнозує хворобу;
-        - твердження, що UBI Hub уже повністю працює.
+        - 87% accuracy as a K-RnD metagenomics result — there is no evidence for this claim.
+        - claims that clinicians are already using these models;
+        - the conclusion that a metagenomics test alone diagnoses or predicts disease;
+        - claims that the UBI Hub is already fully operational.
         """
     )
     st.markdown(
-        '<div class="callout"><b>Наступний дослідницький крок:</b> додати до кожної метрики dataset, '
-        'тип валідації, одиницю вимірювання та наступного користувача результату.</div>',
+        '<div class="callout"><b>Next research step:</b>  add the dataset, '
+        'validation type, unit of measurement, and next result user to every metric.</div>',
         unsafe_allow_html=True,
     )
