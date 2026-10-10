@@ -134,7 +134,7 @@ if view == "Огляд":
     fig.update_xaxes(title="Умовний індекс проходження pipeline (не клінічна метрика)")
     fig.update_yaxes(title="")
     chart_layout(fig, 390)
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
     st.markdown(
         '<div class="source">Ілюстративний індекс для пояснення pipeline K-RnD Lab; '
         'значення 100 → 8 не походять із дослідження і не описують реальні втрати.</div>',
@@ -168,7 +168,7 @@ elif view == "Metagenomics":
     fig.update_xaxes(title="")
     fig.update_layout(showlegend=False)
     chart_layout(fig, 390)
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
     st.markdown(
         '<div class="source">Source: Alina Frolova, “Metagenomics in Practice: From Urban Microbiomes to Human Health”, BioGENext 2026 slide.</div>',
         unsafe_allow_html=True,
@@ -187,7 +187,7 @@ elif view == "Metagenomics":
         )
         fig.update_traces(textinfo="label+percent")
         chart_layout(fig, 330)
-        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
         st.markdown('<div class="source">34,6% — частка reads, що не зіставили з наявними базами.</div>', unsafe_allow_html=True)
     with right:
         runtime = pd.DataFrame({"Інструмент": ["Bakta", "Pannotator"], "Seconds": [930.9, 220.5]})
@@ -204,7 +204,7 @@ elif view == "Metagenomics":
         fig.update_xaxes(title="")
         fig.update_traces(texttemplate="%{text:.1f}s", textposition="outside")
         chart_layout(fig, 330)
-        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
         st.markdown('<div class="source">n=8 154; benchmark slide: 930,9 → 220,5 s, приблизно 4,2×.</div>', unsafe_allow_html=True)
 
 elif view == "Models & validation":
@@ -235,7 +235,7 @@ elif view == "Models & validation":
     fig.update_yaxes(title="Кількість сполук")
     fig.update_xaxes(title="")
     chart_layout(fig, 390)
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
     st.markdown(
         '<div class="source">Source: Boltz presentation, BioGENext 2026. Positive results are not equivalent to an approved drug.</div>',
         unsafe_allow_html=True,
@@ -300,7 +300,7 @@ elif view == "Ukraine pipeline":
     fig.update_yaxes(range=[0.7, 1.3], visible=False)
     fig.update_layout(title="UBI Hub proposal roadmap", height=250)
     chart_layout(fig, 280)
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
     st.markdown(
         '<div class="source">Source: “From Policy to Pipeline” presentation, BioGENext 2026. This is a proposal/roadmap, not a claim that every component is already operational.</div>',
         unsafe_allow_html=True,
